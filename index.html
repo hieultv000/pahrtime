@@ -1,0 +1,214 @@
+<style>
+
+</style>
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" name="csrf-token" content="7csM3darhLDGpUOp6Wuqf33ZMMqK6oeYjrd4TDxi">
+    <link rel="icon" type="image/x-icon" href="/images/Logo_PA.png">
+    <title>Đăng nhập</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
+        integrity="sha512-fw7f+TcMjTb7bpbLJZlP8g2Y4XcCyFZW8uy8HsRZsH/SwbMw0plKHFHr99DN3l04VsYNwvzicUX/6qurvIxbxw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link rel="stylesheet" href="/stylesheets/login_v1_10-11-25.css">
+</head>
+        
+<body>
+    
+    <!-- Custom Loading Overlay -->
+    <div id="loadingOverlay" class="loader-overlay" style="display: none;">
+        <div class="lssd-loader-content">
+            <div class="lssd-badge">
+                <div class="star"></div>
+                <div class="text">Hallo</div>
+            </div>
+            <div class="loading-text">Loading VineWood Academy'S Department...</div>
+            <div class="loader-clock">
+                <span class="hour"></span>
+                <span class="min"></span>
+                <span class="circel"></span>
+            </div>
+        </div>
+    </div>
+
+        <div class="container group-login">
+        <div class="login-box">
+            <div class="logo-login-page">
+                <img src="/images/Logo_PA.png" alt="Logo">
+            </div>
+            <h2>HỌC VIỆN CẢNH SÁT<br><span>VINEWOOD COUNTY ACADEMY'S</span><br>GTA5VN</h2>
+
+            <form action="/login" method="POST" class="form-login">
+                <input type="hidden" name="_token" value="7csM3darhLDGpUOp6Wuqf33ZMMqK6oeYjrd4TDxi" autocomplete="off">                <div class="form__group field">
+                    <input type="text" class="form__field input-login" placeholder="TÊN ĐĂNG NHẬP" name="username"
+                        id="username" required />
+                    <label for="username" class="form__label">TÊN ĐĂNG NHẬP</label>
+                </div>
+
+                <div class="form__group field" style="margin-top: 20px; position: relative;">
+                    <input type="password" class="form__field input-login" placeholder="MẬT KHẨU" name="password"
+                        id="password" required />
+                    <label for="password" class="form__label">MẬT KHẨU</label>
+                    <i class="fa-regular fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+
+                <div class="account-option">
+                    <span>
+                        <a href="#" class="note-account-link" data-bs-toggle="modal" data-bs-target="#registerModal">Chưa có
+                            tài khoản?</a>
+                    </span>
+                </div>
+                                <button type="submit" class="btn-login">ĐĂNG NHẬP</button>
+            </form>
+              <p class="footer-login-page">© 2025 Designed and developed by <a style="color: white;"
+                    href="https://github.com/hieultv000" target="_blank">@thieuz</a></p>
+            <p class="version-login-page">version 0.1</p>
+        </div>
+    </div>
+        </div>
+    </div>
+
+    <!-- Modal hiển thị thông tin liên thệ khi chưa có tài khoảng -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white">
+                        <strong>
+                            Chưa có tài khoản vui lòng liên hệ Discord
+                        </strong>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-white">
+                                            <table class="table_login_contact text-white">
+                            <tbody>
+                                                                    <tr class="mb-5">
+                                        <td>
+                                                                                                                                                <img src="https://images-ext-1.discordapp.net/external/hiuVhrerMhuSEYSfmFV4EgQsIq1FVYj8kX-7kDvJcNM/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1256089243273400386/3e37830319fecf2a17dc248f8f86e465.png?format=webp&quality=lossless&width=172&height=172" alt="Avatar"
+                                                        class="avatar_contact">
+                                                                                                                                    </td>
+                                        <td>
+                                            <strong>Wuang Ziet</strong>
+                                        </td>
+                                        <td>Giám Đốc</td>
+                                    </tr>
+                                                                    <tr class="mb-5">
+                                        <td>
+                                                                                            <img src="https://images-ext-1.discordapp.net/external/1lLzg_6wc-12vh4mByw8Nuxv7Ua6xiJxfBmlvikUkhw/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1285225890313146450/d9e4a4ae86ae0dc9847bd0d20f782d0a.png?format=webp&quality=lossless&width=679&height=679" alt="Avatar" class="avatar_contact">
+                                                                                    </td>
+                                        <td>
+                                            <strong>Haii Co</strong>
+                                        </td>
+                                        <td>Phó Giám Đốc</td>
+                                    </tr>
+                                                                    <tr class="mb-5">
+                                        <td>
+                                                                                                                                                <img src="https://images-ext-1.discordapp.net/external/--FguJrE5DtcyiXdmcBJNbc5pQzH79WskmE14cskppM/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/359882660866293770/244359dedf97392c31386a86acccf60a.png?format=webp&quality=lossless&width=172&height=172" alt="Avatar"
+                                                        class="avatar_contact">
+                                                                                                                                    </td>
+                                        <td>
+                                            <strong>Lil Kenzi</strong>
+                                        </td>
+                                        <td>Phó Giám Đốc</td>
+                                    </tr>
+                                                            </tbody>
+                        </table>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+
+  <!-- Thông Báo -->
+    <div class="notifications">
+        <span id="session-success" data-message=""></span>
+        <span id="session-warning" data-message=""></span>
+        <span id="session-info" data-message=""></span>
+        <!-- <span id="session-warning" data-message=""></span> -->
+        <span id="session-error" data-message="Tên đăng nhập hoặc mật khẩu không đúng"></span>
+    </div>
+
+    
+        <script>
+        document.querySelector('.loader').addEventListener('submit', function (e) {
+            showLoading();
+        });
+        function previewAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+                const maxSize = 2 * 1024 * 1024; // 2MB
+
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Chỉ cho phép ảnh định dạng JPEG, PNG, JPG, GIF');
+                    event.target.value = '';
+                    return;
+                }
+
+                if (file.size > maxSize) {
+                    alert('Kích thước ảnh tối đa là 2MB');
+                    event.target.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-8YDHTMMQJE');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8YDHTMMQJE"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.min.js" integrity="sha512-zKeerWHHuP3ar7kX2WKBSENzb+GJytFSBL6HrR2nPSR1kOX1qjm+oHooQtbDpDBSITgyl7QXZApvDfDWvKjkUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="https://www.lssdhrtime.com/assets/js/loading.js"></script>
+    <script src="https://www.lssdhrtime.com/assets/js/notification.js"></script>
+    <script src="https://www.lssdhrtime.com/assets/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script>
+        setTimeout(() => {
+            const notifi = document.querySelector('.notifi');
+            if (notifi) {
+                notifi.remove();
+            }
+        }, 5000);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordField = document.getElementById('password');
+
+            togglePassword.addEventListener('click', function () {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        });
+
+        document.querySelector('.form-login').addEventListener('submit', function (e) {
+            const btn = document.querySelector('.btn-login');
+            btn.disabled = true;
+            btn.textContent = 'Đang đăng nhập...';
+            showLoading();
+        });
+    </script>
+    <script src="https://www.lssdhrtime.com/assets/js/loading.js"></script>
+</body>
+
+</html>
