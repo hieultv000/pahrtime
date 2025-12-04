@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Quản Lý Thành Viên</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #0f0f1e; color: #fff; margin: 0; padding: 20px; }
+    .container { max-width: 1200px; margin: auto; background: #1a1a2e; padding: 25px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,255,255,0.2); }
+    h1 { text-align: center; color: #00ffcc; text-shadow: 0 0 10px #00ffcc; }
+    .form-group { margin: 15px 0; }
+    label { display: block; margin-bottom: 8px; color: #00ffcc; }
+    input, select { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #16213e; color: #fff; }
+    button { padding: 12px 25px; background: #00ff88; border: none; border-radius: 8px; color: #000; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    button:hover { background: #00ffcc; }
+    button.del { background: #ff0066; color: white; }
+    button.del:hover { background: #ff3366; }
+    table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+    th, td { padding: 15px; text-align: center; border-bottom: 1px solid #00ffcc33; }
+    th { background: #16213e; color: #00ffcc; }
+    tr:hover { background: rgba(0,255,204,0.1); }
+    .search { width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 10px; background: #16213e; border: none; color: white; font-size: 16px; }
+    .success { color: #00ff88; background: rgba(0,255,136,0.2); padding: 15px; border-radius: 10px; text-align: center; }
+    .error { color: #ff0066; background: rgba(255,0,102,0.2); padding: 15px; border-radius: 10px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ADMIN PANEL - QUẢN LÝ THÀNH VIÊN</h1>
+
+    <% if (success) { %>
+      <div class="success">Thành công: <%= success === 'created' ? 'Tạo tài khoản mới thành công!' : 'Cập nhật thành công!' %></div>
+    <% } %>
+    <% if (error) { %>
+      <div class="error">Lỗi: <%= error === 'missing' ? 'Thiếu thông tin' : error === 'exists' ? 'Tên đăng nhập đã tồn tại' : 'Có lỗi xảy ra' %></div>
+    <% } %>
+
+    <!-- Form Tạo Tài Khoản Mới -->
+    <h2 style="color:#00ffcc; margin-top:30px;">Tạo Tài Khoản Mới</h2>
+    <form method="POST" action="/register">
+      <div class="form-group">
+        <label>Tên đăng nhập (username)</label>
+        <input type="text" name="username" required placeholder="ví dụ: chusau">
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" name="password" required placeholder="ít nhất 4 ký tự">
+      </div>
+      <div class="form-group">
+        <label>Tên hiển thị (in-game)</label>
+        <input type="text" name="displayName" required placeholder="Chu Sauu">
+      </div>
+      <div class="form-group">
+        <label>Chức vụ</label>
+        <select name="position" required>
+          <option value="">-- Chọn chức vụ --</option>
+          <% positions.forEach(p => { %>
+            <option value="<%= p %>"><%= p %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Quân hàm</label>
+        <select name="rank">
+          <option value="">-- Không có --</option>
+          <% ranks.forEach(r => { %>
+            <option value="<%= r %>"><%= r %></option>
+          <% }) %>
+        </select>
+      </div>
+      <button type="submit">TẠO TÀI KHOẢN MỚI</button>
+    </form>
+
+    <hr style="border: 1px solid #00ffcc33; margin: 40px 0;">
+
+    <!-- Danh sách thành viên -->
+    <h2 style="color:#00ffcc;">Danh Sách Thành Viên (<%= db.users.length %> người)</h2>
+    <input type="text" class="search" id="searchInput" placeholder="Tìm kiếm tên, username...">
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên hiển thị</th>
+          <th>Username</th>
+          <th>Chức vụ</th>
+          <th>Quân hàm</th>
+          <th>Role</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody id="userTable">
+        <% db.users.forEach(user => { %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.displayName || 'Chưa đặt' %></td>
+            <td><%= user.username %></td>
+            <td><%= user.position || 'Cảnh sát viên' %></td>
+            <td><%= user.rank || '-' %></td>
+            <td>
+              <form method="POST" action="/admin/role/<%= user.id %>" style="display:inline;">
+                <select name="role" onchange="this.form.submit()">
+                  <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>User</option>
+                  <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+                </select>
+              </form>
+            </td>
+            <td>
+              <form method="POST" action="/admin/delete/<%= user.id %>" style="display:inline;" onsubmit="return confirm('Xóa thật hả bro? Không khôi phục được đâu!')">
+                <button type="submit" class="del">Xóa</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Tìm kiếm nhanh
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll('#userTable tr');
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(filter) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

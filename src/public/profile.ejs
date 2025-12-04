@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= displayName %></title>
+    <link rel="icon" type="image/x-icon" href="/images/Logo_PA.png">
+
+    <link rel="stylesheet" href="https://www.lssdhrtime.com/assets/bootstrap-5.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.lssdhrtime.com/assets/fontawesome-6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="main-header">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="nav-logo">
+                <h5 class="lilita-one-regular">VineWood Academy'S DEPARTMENT</h5>
+            </div>
+            <div class="user-info d-flex align-items-center gap-2">
+                <span>
+                    Xin chào, <a href="/profile" class="text-decoration-underline"><%= position %> <strong><%= displayName %></strong></a>
+                </span>
+                <div class="nav-avartar">
+                    <img src="<%= avatar %>" alt="Avatar" class="rounded-circle user-avatar" width="46" height="46"
+                         onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=<%= encodeURIComponent(displayName) %>&background=random';">
+                </div>
+                <div class="dropdown">
+                    <button class="btn-drop-custom active-link-popup" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item text-primary active-link-popup" href="/profile">Hồ sơ</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Đăng xuất
+                            </a>
+                            <form id="logout-form" action="/logout" method="POST" class="d-none"></form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container color-white">
+        <a class="navbar-brand d-flex align-items-center logo_lssd" href="/home">
+            <img src="/images/Logo_PA.png" alt="Logo" height="50" class="me-3">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/home">Trang Chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="/attendance">Chấm Công</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loader-overlay" style="display: none;">
+    <div class="lssd-loader-content">
+        <div class="lssd-badge"><div class="star"></div><div class="text">PA</div></div>
+        <div class="loading-text">Loading VineWood Academy Department...</div>
+        <div class="loader-clock"><span class="hour"></span><span class="min"></span><span class="circel"></span></div>
+    </div>
+</div>
+
+<div class="container py-5 profile-card">
+
+    <!-- Form xóa avatar ẩn -->
+    <form id="deleteAvatarForm" action="/profile/avatar" method="POST" class="delete-avatar d-none">
+        <input type="hidden" name="_method" value="DELETE">
+    </form>
+
+    <!-- Form cập nhật hồ sơ + avatar -->
+    <form class="box-profile p-4 loader" method="POST" action="/profile/update" enctype="multipart/form-data">
+        <div class="row p-2 profile-card">
+
+            <!-- Cột Avatar -->
+            <div class="col-md-4 text-center mt-5 align-items-cente">
+                <div class="avatar-circle mt-5">
+                    <div class="profile-avatar-wrapper">
+                        <img id="avatarPreview" 
+     src="<%= avatar %>" 
+     alt="Avatar"
+     class="profile-avatar mb-3"
+     onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=<%= encodeURIComponent(displayName) %>&background=random&bold=true&size=256';">
+                    </div>
+                </div>
+
+                <input type="file" name="avatar" accept="image/*" class="d-none" id="avatarInput" onchange="previewAvatar(event)">
+                <label for="avatarInput" class="btn-change-img mt-4">
+                    Chọn ảnh đại diện
+                </label>
+                <br>
+                <button type="button" onclick="confirmDeleteAvatar()" class="btn-remove-avt mt-2">Xoá ảnh đại diện</button>
+            </div>
+
+            <!-- Cột thông tin -->
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="mb-4">Hồ sơ Sĩ quan <strong><%= displayName %></strong></h3>
+
+                        <div class="mb-3">
+                            <label class="form-label"><b>Tên đăng nhập</b></label>
+                            <input type="text" class="form-control info-box input__view cursor_not_allowed"
+                                   value="<%= username %>" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><b>Tên trong game</b></label>
+                            <input type="text" name="name_ingame" class="form-control info-box input__view cursor_not_allowed" 
+                                   value="<%= displayName %>" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><b>Chức vụ</b></label>
+                            <input type="text" class="form-control info-box cursor_not_allowed"
+                                   value="<%= rank %>" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><b>Quân hàm</b></label>
+                            <input type="text" class="form-control info-box cursor_not_allowed text-primary fw-bold"
+                                   value="<%= position %>" disabled>
+                        </div>
+
+                        <button type="submit" class="btn-update-profile mt-3">
+                            Cập nhật hồ sơ
+                        </button>
+                    </div>
+
+                    <!-- Cột lương -->
+                    <div class="col-md-6">
+                        <div class="card p-5 mt-5 box-info-custom">
+                            <div class="card-body">
+                                <div class="info-box item-info mb-3 text-center">
+                                    <strong>Tổng Tiền Sự Nghiệp</strong>
+                                    <div class="text-success fs-4 fw-bold"><%= careerTotal.toLocaleString() %>$</div>
+                                </div>
+
+                                <div class="info-box item-info mb-3 text-center">
+                                    <strong>Lương tháng</strong>
+                                    <div class="fst-italic">
+                                        <details>
+                                            <summary>Chi Tiết</summary>
+                                            <table class="tb_total_month table table-sm">
+                                                <tbody>
+                                                    <% if (monthlyHistory && monthlyHistory.length > 0) { %>
+                                                        <% monthlyHistory.slice().reverse().forEach(entry => { %>
+                                                        <tr>
+                                                            <td><%= entry.month %></td>
+                                                            <td class="text-primary"><%= parseFloat(entry.hours).toFixed(2) %>h</td>
+                                                            <td class="text-success"><%= Math.round(entry.salary).toLocaleString() %>$</td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    <% } else { %>
+                                                        <tr><td colspan="3" class="text-center text-muted">Chưa có dữ liệu</td></tr>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </details>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="d-flex justify-content-center mt-2 box-connect-discord">
+                        </button>
+                    </form>
+                    <a href="https://discord.gg/YK3xRYmu" class="btn btn-primary lien-ket-discord ms-2" id="discord-link">
+                        <i class="fab fa-discord"></i>Tham Gia <b>Lanyard</b> Hiển Thị Hoạt Động Discord
+                    </a>
+                            </div>
+                                    <div class="p-3 mt-2 box-connect-discord" style="max-width: fit-content; border-left: 5px solid #59bdba;">
+                
+                                    <strong>Status:</strong> Người làm thì ít nói, người nói chưa chắc đã làm. Người có không khoe, người khoe chưa chắc đã có.
+                    
+                            </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Thông báo (nếu có) -->
+    <div class="notifications">
+        <span id="session-success" data-message=""></span>
+        <span id="session-warning" data-message=""></span>
+        <span id="session-info" data-message=""></span>
+        <!-- <span id="session-warning" data-message=""></span> -->
+        <span id="session-error" data-message=""></span>
+    </div>
+
+    
+            <div class="container">
+    <footer class="d-flex flex-column flex-lg-row justify-content-between align-items-start py-3 my-4 border-top">
+        <div class="mb-3 mb-lg-0">
+            <span class="text-body-secondary">
+                © 2025 Designed and developed by <a href="https://www.linkedin.com/in/di-myname/" target="_blank">@tieedii</a> -
+                version 0.1
+            </span>
+        </div>
+        <div class="mt-2">
+            <ul class="contact_admin d-flex justify-content-end">
+                <li>
+                    <a href="https://github.com/truongvinhky22023-lab" target="_blank">
+                        <i class="custom_icon fa-brands fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/@sau123-developer" target="_blank">
+                        <i class="custom_icon fa-brands fa-youtube"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/di-myname/" target="_blank">
+                        <i class="custom_icon fa-brands fa-linkedin"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<style>
+    .contact_admin {
+        gap: 30px;
+
+        .fa-linkedin {
+            &:hover {
+                color: #0077b5;
+            }
+        }
+
+        .fa-youtube {
+            &:hover {
+                color: #ff0033;
+            }
+        }
+
+        li {
+            list-style: none;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .custom_icon {
+        position: relative;
+        font-size: 30px;
+        color: #1f2328;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            border: 3px solid #e8a800;
+            border-radius: 50%;
+        }
+    }
+</style>      
+  <script>
+        document.querySelector('.loader').addEventListener('submit', function (e) {
+            showLoading();
+        });
+        function previewAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+                const maxSize = 2 * 1024 * 1024; // 2MB
+
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Chỉ cho phép ảnh định dạng JPEG, PNG, JPG, GIF');
+                    event.target.value = '';
+                    return;
+                }
+
+                if (file.size > maxSize) {
+                    alert('Kích thước ảnh tối đa là 2MB');
+                    event.target.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-8YDHTMMQJE');
+function previewAvatar(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+    const maxSize = 2 * 1024 * 1024;
+
+    if (!allowedTypes.includes(file.type)) {
+        Swal.fire('Lỗi', 'Chỉ cho phép ảnh JPEG, PNG, JPG, GIF', 'error');
+        event.target.value = '';
+        return;
+    }
+    if (file.size > maxSize) {
+        Swal.fire('Lỗi', 'Kích thước ảnh tối đa là 2MB', 'error');
+        event.target.value = '';
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = e => document.getElementById('avatarPreview').src = e.target.result;
+    reader.readAsDataURL(file);
+}
+
+function confirmDeleteAvatar() {
+    Swal.fire({
+        title: 'Bạn chắc chắn?',
+        text: "Xóa ảnh đại diện sẽ không thể khôi phục!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Xoá',
+        cancelButtonText: 'Huỷ'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            showLoading();
+            document.getElementById('deleteAvatarForm').submit();
+        }
+    });
+}
+
+// Hiển thị loading khi submit form
+document.querySelectorAll('form.loader').forEach(form => {
+    form.addEventListener('submit', () => showLoading());
+});
+</script>
+</body>
+</html>
+</html>

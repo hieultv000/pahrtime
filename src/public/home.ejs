@@ -1,0 +1,564 @@
+        <!DOCTYPE html>
+        <html lang="vi">
+
+        <head>
+            <meta charset="UTF-8" name="csrf-token" content="IpPlY8UN6Q51F0VMTZ6g02yIgXNuul0bOYUUNeCH">
+            <link rel="icon" type="image/x-icon" href="/images/Logo_PA.png">
+            <title>Trang Chủ</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+            <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
+                integrity="sha512-fw7f+TcMjTb7bpbLJZlP8g2Y4XcCyFZW8uy8HsRZsH/SwbMw0plKHFHr99DN3l04VsYNwvzicUX/6qurvIxbxw=="
+                crossorigin="anonymous" referrerpolicy="no-referrer" />
+                    <link rel="stylesheet" href="stylesheets/style.css">
+                    <link rel="stylesheet" href="stylesheets/home.css">
+            <link rel="stylesheet" href="stylesheets/hr_employees.css">
+        </head>
+
+        <body>
+                    <link rel="stylesheet" href="stylesheets/navbar.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://www.lssdhrtime.com/assets/css/nav_marquee_1.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=BBH+Sans+Bogle&family=Lilita+One&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom"></nav> -->
+            <header class="main-header">
+                <div class="container">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="nav-logo">
+                            <h5 class="lilita-one-regular">VINEWOOD ACADEMY'S DEPARTMENT</h5>
+                        </div>
+                        <div class="user-info d-flex align-items-center gap-2">
+                            <span>
+                                Xin chào, <a href="/profile" class=""> <%= position %>
+                                <strong><%= displayName %></strong>
+                                </a>
+                            </span>
+                            <div class="nav-avartar">
+                                                            <img src="<%= avatar %>"
+                                        alt="Avatar"
+                                        class="rounded-circle user-avatar"
+                                        width="46"
+                                        height="46"
+                                        onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=<%= displayName %>&background=random';">
+                                                    </div>
+                            <div class="dropdown">
+                                <button class="btn-drop-custom " type="button" id="userDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-caret-down"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <li>
+                                        <a class="dropdown-item text-primary " href="/profile">
+                                            <i class="fas fa-info-circle me-2"></i>Hồ sơ
+                                        </a>
+                                    </li>
+                                    <% if (role === 'admin') { %>
+                                    <li><a class="dropdown-item text-info" href="/admin"><i class="fas fa-user-plus me-2"></i>Panel Admin</a></li>
+                                    <% } %>
+                                    <li>
+                                        </li>
+                                    <% if (role === 'admin') { %>
+                                    <li><a class="dropdown-item text-info" href="/admin-panel"><i class="fas fa-user-plus me-2"></i>Panel Duty</a></li>
+                                    <% } %>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-danger" href="#"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                                        </a>
+                                        <form id="logout-form" action="/logout" method="POST" class="d-none">
+                                            <input type="hidden" name="_token" value="IpPlY8UN6Q51F0VMTZ6g02yIgXNuul0bOYUUNeCH" autocomplete="off">                                </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        </div> 
+                <!-- THÔNG BÁO CHẠY – GIỮ NGUYÊN PHÔNG + MÀU GỐC, CHẠY SIÊU MƯỢT & CHẬM -->
+        <div class="marquee-wrap" role="region" aria-label="Thông báo">
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    Nhằm quản lý hoạt động On Duty của các bạn, mọi người vui lòng vào Chấm Công để On Duty và đến khi Off Duty
+                    &nbsp;&nbsp;-&nbsp;&nbsp;
+                    Mọi Bug, Lag, ... thắc mắc vui lòng liên hệ T Hieuz trên Discord PA để được hỗ trợ nhanh nhất!
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+
+        <style>
+        /* GIỮ NGUYÊN PHÔNG, MÀU NHƯ BẢN GỐC CỦA BẠN */
+        .marquee-wrap {
+            background: #ff8a00;                     /* màu cam gốc */
+            background: linear-gradient(90deg, #ff8a00, #e52e71); /* gradient gốc */
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: inherit;                     /* giữ nguyên font của web */
+            font-size: inherit;
+            color: white;
+            font-weight: 600;
+            line-height: 1.5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .marquee-container {
+            display: inline-block;
+            animation: scroll 100s linear infinite;   /* 100 giây 1 vòng → chậm rãi cực kỳ */
+            padding-left: 100%;
+            will-change: transform;
+        }
+
+        .marquee-container:hover {
+            animation-play-statestate: paused;        /* rê chuột dừng lại */
+        }
+
+        /* Tự động nhân đôi nội dung để không bị hẫng */
+        .marquee-content::after {
+            content: "Nhằm quản lý hoạt động On Duty của các bạn, mọi người vui lòng vào Chấm Công để On Duty và đến khi Off Duty - Mọi Bug, Lag, ... thắc mắc vui lòng liên hệ Chu Sauu trên Discord PA để được hỗ trợ nhanh nhất!              ";
+            margin-left: 50px;
+        }
+
+        @keyframes scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Điện thoại vẫn chậm và dễ đọc */
+        @media (max-width: 768px) {
+            .marquee-container { animation-duration: 80s; }
+        }
+        </style>
+                </div>
+                <!-- KẾT THÚC MARQUEE -->
+                </div> 
+            </header>
+            <nav class="navbar navbar-expand-lg navbar-custom">
+                <div class="container color-white">
+                    <a class="navbar-brand d-flex align-items-center logo_lssd" href="/home">
+                        <img src="/images/Logo_PA.png" alt="Logo" height="50" class="me-3">
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active-link"
+                                    href="/home"><i class="fa-solid fa-house"></i> Trang Chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link "
+                                    href="/attendance"><i class="fa-solid fa-clock"></i> Chấm Công</a>
+                            </li>
+                            
+                                            </ul>
+                    </div>
+                </div>
+            </nav>
+
+            
+            <!-- Custom Loading Overlay -->
+            <div id="loadingOverlay" class="loader-overlay" style="display: none;">
+                <div class="lssd-loader-content">
+                    <div class="lssd-badge">
+                        <div class="star"></div>
+                        <div class="text">Hallo</div>
+                    </div>
+                    <div class="loading-text">Loading VineWood Academy Department...</div>
+                    <div class="loader-clock">
+                        <span class="hour"></span>
+                        <span class="min"></span>
+                        <span class="circel"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row group_home_01 mt-5 align-items-stretch">
+                    <div class="col-lg-8 mb-3">
+                        <div class="box_display_home table-responsive card_table_employees">
+                            <h4 class="border-bottom-h4-home"><strong>Thành Viên LLCS PA</strong></h4>
+                            <table class="table table-sm text-center table_employees table-hover">
+                                <thead>
+                                    <tr class="head-table-employees-home">
+                                        <th>STT</th>
+                                        <th>AVT</th>
+                                        <th>Tên Sĩ Quan</th>
+                                        <th>Chức Vụ</th>
+                                        <th>Quân Hàm</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% users.forEach((u, index) => { %>
+                                        <tr class="glow">
+                                            <td><%= (currentPage - 1) * 5 + index + 1 %></td>
+                                            <td>
+                                                <img src="<%= u.avatar %>"
+                                                    alt="Avatar" class="rounded-circle" width="40" height="40"
+                                                    onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=<%= u.displayName %>&background=random';">
+                                            </td>
+                                            <td><%= u.displayName %></td>
+                                            <td><%= u.rank %></td>
+                                            <td><%= u.position %></td> <!-- Assuming Quân Hàm same as Chức Vụ, adjust if needed -->
+                                        </tr>
+                                    <% }); %>
+                                                            </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center mt-3 phan_trang">
+                                <nav>
+                <ul class="pagination">
+                    <% if (currentPage > 1) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<%= currentPage - 1 %>" aria-label="Previous">&lsaquo;</a>
+                    </li>
+                    <% } %>
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                    <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                        <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                    </li>
+                    <% } %>
+                    <% if (currentPage < totalPages) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<%= currentPage + 1 %>" aria-label="Next">&rsaquo;</a>
+                    </li>
+                    <% } %>
+                </ul>
+            </nav>
+
+                            </div>
+                        </div>
+                    </div>
+                      <div class="col-lg-4">
+                <div class="box_display_home card_right_top">
+                    <div class="row d-flex text-center align-items-center">
+                        <div class="col-md-6 mb-2">
+                            <div class="info-box ">
+                                        <strong>
+                                            <i class="fa-solid fa-users"></i> TV PA:
+                                            <%= totalMembers %>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="info-box">
+                                        <strong>    
+                                            <i class="fa-solid fa-crown"></i> TV cấp cao:
+                                            <%= highLevelMembers %>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info-box">
+                                <strong>
+                                    <p>Chào mừng bạn đến với trang chủ của LLCS PA!</p>
+                                    <p>Xem các thông tin và cập nhật mới nhất trên Discord PA.</p>
+                                    <p>Chúc bạn một ngày làm việc đầy vui vẻ.</p>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="box_display_home card_right_bottom mt-3 p-2">
+                            <div class="banner_lssd_home">
+                                <img src="/images/banner_pa_3.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="container">
+                <div class="label-top ms-5 mt-5">
+                    <h4>Form Nhập Liệu</h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <a class="card lssd container mt-5 mb-5" href="/attendance" target="_blank">
+                            <div class="overlay"></div>
+                            <div class="circle">
+                                <img class="mb-2" src="/images/Logo_PA.png" alt="" width="100" height="100">
+                            </div>
+                            <p><b>Chấm Công</b></p>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <a class="card lssd container mt-5 mb-5"
+                            href="https://sites.google.com/view/info-gta5vn/b%E1%BB%99-lu%E1%BA%ADt-vinewood"
+                            target="_blank">
+                            <div class="overlay"></div>
+                            <div class="circle">
+                                <img class="mb-2" src="/images/Logo_PA.png" alt="" width="100" height="100">
+                            </div>
+                            <p><b>Bộ Luật Liên Bang</b></p>
+                        </a>
+                    </div>
+                    <div class="label-center ms-5 mt-5">
+                        <h4>Khác</h4>
+                    </div>
+
+                    <!-- Nội Quy Học Viện -->
+                    <div class="col-lg-3">
+                        <a class="card lssd container mt-5 mb-5 card-img">
+                            <img src="/images/noiquy.png" class="img-thumbnail" data-bs-toggle="modal"
+                                data-bs-target="#imageModal" onclick="changeImage(this)" width="100" height="100"
+                                style="object-fit: cover;">
+                            <p class="text-dark"><b>Nội Quy Học Viện</b></p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="card lssd container mt-5 mb-5 card-img">
+                            <img src="/images/quy tac xung ho.png" onclick="changeImage(this)" width="100"
+                                height="100" style="object-fit: cover;">
+                            <p class="text-dark"><b>Quy Tắc Xưng Hô</b></p>
+                        </a>
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="card lssd container mt-5 mb-5 card-img">
+                            <img src="/images/code bk.png" class="img-thumbnail" data-bs-toggle="modal"
+                                data-bs-target="#imageModal" onclick="changeImage(this)"
+                                style="height: 90%; border: none; object-fit: cover;">
+                            <p class="text-dark"><b>Các Code BK</b></p>
+                        </a>
+                    </div>
+
+                               <!-- modal hiển thị ảnh -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <img id="modalImg" src="" class="img-fluid" width="70%" height="70%" style="object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+            <!-- Thông Báo -->
+    <div class="notifications">
+        <span id="session-success" data-message=""></span>
+        <span id="session-warning" data-message=""></span>
+        <span id="session-info" data-message=""></span>
+        <!-- <span id="session-warning" data-message=""></span> -->
+        <span id="session-error" data-message=""></span>
+    </div>
+
+    
+            <div class="container">
+    <footer class="d-flex flex-column flex-lg-row justify-content-between align-items-start py-3 my-4 border-top">
+        <div class="mb-3 mb-lg-0">
+            <span class="text-body-secondary">
+                © 2025 Designed and developed by <a href="https://github.com/hieultv000" target="_blank">@thieuz</a> -
+                version 0.1
+            </span>
+        </div>
+        <div class="mt-2">
+            <ul class="contact_admin d-flex justify-content-end">
+                <li>
+                    <a href="https://github.com/hieultv000" target="_blank">
+                        <i class="custom_icon fa-brands fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/@hieultv" target="_blank">
+                        <i class="custom_icon fa-brands fa-youtube"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/hieultv000" target="_blank">
+                        <i class="custom_icon fa-brands fa-linkedin"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<style>
+    .contact_admin {
+        gap: 30px;
+
+        .fa-linkedin {
+            &:hover {
+                color: #0077b5;
+            }
+        }
+
+        .fa-youtube {
+            &:hover {
+                color: #ff0033;
+            }
+        }
+
+        li {
+            list-style: none;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .custom_icon {
+        position: relative;
+        font-size: 30px;
+        color: #1f2328;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            border: 3px solid #e8a800;
+            border-radius: 50%;
+        }
+    }
+</style>   
+        </style>        <script>
+                document.querySelector('.loader').addEventListener('submit', function (e) {
+                    showLoading();
+                });
+                function previewAvatar(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+                        const maxSize = 2 * 1024 * 1024; // 2MB
+
+                        if (!allowedTypes.includes(file.type)) {
+                            alert('Chỉ cho phép ảnh định dạng JPEG, PNG, JPG, GIF');
+                            event.target.value = '';
+                            return;
+                        }
+
+                        if (file.size > maxSize) {
+                            alert('Kích thước ảnh tối đa là 2MB');
+                            event.target.value = '';
+                            return;
+                        }
+
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.getElementById('avatarPreview').src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+
+                gtag('config', 'G-8YDHTMMQJE');
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-8YDHTMMQJE"></script>
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.min.js" integrity="sha512-zKeerWHHuP3ar7kX2WKBSENzb+GJytFSBL6HrR2nPSR1kOX1qjm+oHooQtbDpDBSITgyl7QXZApvDfDWvKjkUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+            <script src="https://www.lssdhrtime.com/assets/js/loading.js"></script>
+            <script src="https://www.lssdhrtime.com/assets/js/notification.js"></script>
+            <script src="https://www.lssdhrtime.com/assets/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Thông Báo',
+                        html: `<p style="text-align:left">
+                                                Liên kết Discord trong hồ sơ và tham gia Lanyard để lấy dữ liệu hoạt động Discord.<br>
+                                                    </p>`,
+                        confirmButtonText: 'Rõ',
+                        confirmButtonColor: '#ffc107'
+                    });
+                });
+                
+                document.addEventListener("click", function (e) {
+                    const popup = document.querySelector(".popup");
+                    const checkbox = popup.querySelector("input[type=checkbox]");
+
+                    if (!popup.contains(e.target)) {
+                        checkbox.checked = false;
+                    }
+                });
+                function changeImage(img) {
+                    document.getElementById("modalImg").src = img.src;
+                }
+                // Fireworks effect
+                // Firework chỉ bắn khi load hoặc click
+                function createFirework() {
+                    const firework = document.createElement('div');
+                    firework.classList.add('firework');
+
+                    const colors = ['#ffdd00', '#00eaff', '#ffffff', '#ff8a00'];
+                    firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    firework.style.left = Math.random() * 100 + 'vw';
+                    firework.style.top = Math.random() * 100 + 'vh';
+
+                    firework.style.setProperty('--x', (Math.random() - 0.5) * 300 + 'px');
+                    firework.style.setProperty('--y', (Math.random() - 0.5) * 300 + 'px');
+
+                    document.body.appendChild(firework);
+                    setTimeout(() => firework.remove(), 1000);
+                }
+
+                // Firework lúc load trang
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(createFirework, i * 150);
+                }
+
+                // Firework khi click vào màn hình
+                document.addEventListener("click", createFirework);
+
+                // Create occasional fireworks
+                setInterval(createFirework, 300);
+
+                // Create initial fireworks
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(createFirework, i * 100);
+                }
+            </script>
+            <script>
+                document.addEventListener("click", function (e) {
+                    const popup = document.querySelector(".popup");
+                    const checkbox = popup.querySelector("input[type=checkbox]");
+                    if (!popup.contains(e.target)) {
+                        checkbox.checked = false;
+                    }
+                });
+                document.addEventListener('DOMContentLoaded', function () {
+                    const xemBtns = document.querySelectorAll('.btn-logout');
+
+                    xemBtns.forEach(btn => {
+                        btn.addEventListener('click', function (e) {
+                            document.getElementById('loadingOverlay').style.display = 'flex';
+                        });
+                    });
+                });
+                document.addEventListener('DOMContentLoaded', function () {
+                    const xemBtns = document.querySelectorAll('.loader-1');
+
+                    xemBtns.forEach(btn => {
+                        btn.addEventListener('click', function (e) {
+                            document.getElementById('loadingOverlay').style.display = 'flex';
+                        });
+                    });
+                });
+            </script>
+        </body>
+
+        </html>

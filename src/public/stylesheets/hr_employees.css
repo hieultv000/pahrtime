@@ -1,0 +1,385 @@
+/* body {
+    background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+    background-size: cover;
+} */
+
+.table-employees {
+    border-radius: 20px;
+}
+
+.tb-timekeeping {
+    border: 1px solid #6e9add;
+}
+
+.table-radius-custom {
+    border-radius: 25px;
+
+    thead tr th {
+        border-radius: 25px;
+    }
+}
+
+/* BUTTON CSS */
+.btn-action-hr {
+    color: #6C757D;
+    border-radius: 10px;
+    padding: 8px 16px;
+    margin: 32px 0 16px;
+    font-weight: 300;
+    font-size: 16px;
+    border: 1px solid #6C757D;
+    background: none;
+    outline: none;
+}
+
+.btn-add {
+    i {
+        color: #6C757D;
+    }
+}
+
+.btn-add:hover {
+    background-color: #6C757D;
+    color: white;
+
+    i {
+        color: #ffffff;
+    }
+}
+
+.btn-history {
+    border-radius: 20px;
+
+    i {
+        color: #6C757D;
+    }
+}
+
+.btn-history:hover {
+    background: #6C757D;
+    color: white;
+
+    i {
+        color: white;
+    }
+}
+
+.btn-edit {
+    border: 1px solid #6C757D;
+    color: #6C757D;
+    border-radius: 20px;
+    padding: 2px 16px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: transparent;
+    outline: none;
+    background-color: none;
+}
+
+.btn-edit:hover {
+    background-color: #6C757D;
+    color: white;
+}
+
+.btn-delete {
+    border: 1px solid red;
+    color: red;
+    border-radius: 20px;
+    padding: 2px 16px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: transparent;
+}
+
+.btn-delete:hover {
+    background-color: red;
+    color: white;
+}
+
+.btn-trash {
+    background: none;
+
+    &:hover {
+        background: #6C757D;
+        color: white;
+    }
+}
+
+.btn-select-all {
+    font-weight: 700;
+    color: #0091ff;
+}
+
+.btn-select-all:hover {
+    cursor: pointer;
+    scale: 1.05;
+    text-decoration: underline;
+}
+
+.btn-timekeeping-onduty {
+    padding: 10px 15px;
+    border-radius: 10px;
+    background: rgba(6, 146, 62, 0.8);
+    color: white;
+    border: none;
+    transition: all 200ms;
+
+    &:hover {
+        background: #06923E;
+        color: white;
+    }
+}
+
+.btn-timekeeping-offduty {
+    padding: 10px 15px;
+    border-radius: 10px;
+    background: rgba(178, 34, 34, 0.7);
+    color: white;
+    border: none;
+    transition: all 200ms;
+
+    &:hover {
+        background: #b01919;
+        color: white;
+    }
+}
+
+.btn-timekeeping-fulltime {
+    padding: 10px 15px;
+    border-radius: 10px;
+    background: #DDDDDD;
+    border: none;
+    transition: all 200ms;
+    cursor: not-allowed;
+}
+
+.btn-check-trash-delete {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.btn-resetpassword {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #06923E;
+    border: none;
+    outline: none;
+    color: white;
+    transition: all 200ms;
+
+    &:hover {
+        background: #07d75a;
+        color: rgb(135, 135, 135);
+        color: white;
+        transform: translateY(-2px);
+    }
+}
+
+/* PHÂN TRANG CSS */
+.pagination .page-link {
+    border-radius: 6px;
+    margin: 0 2px;
+    color: #6C757D;
+    border: 1px solid #a992ff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #6C757D;
+    color: white;
+    border-color: #6C757D;
+}
+
+.pagination .page-link:hover {
+    background-color: #6C757D;
+    color: white;
+}
+
+.box-employees th,
+td {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+.box-employees,
+.box-timer {
+    border: 1px solid #6C757D;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: .5px;
+}
+
+/* History Modal  */
+
+.btn-restore {
+    border: 1px solid green;
+    color: green;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn-restore:hover {
+    background-color: green;
+    color: white;
+}
+
+.modal-header {
+    background-color: #6C757D;
+    color: white;
+}
+
+.history-item {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+
+/* SEARCH CSS */
+.search-wrapper {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.search-box {
+    position: relative;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border: 1px solid #ffdf8f;
+}
+
+.search-box:focus-within {
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.search-input {
+    border-radius: 50px;
+    padding-left: 45px;
+    padding-right: 20px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    height: 50px;
+}
+
+.search-input:focus {
+    border-color: #6C757D;
+    box-shadow: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    z-index: 10;
+}
+
+.search-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50px;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+    background: #6C757D;
+    border: none;
+}
+
+.search-button:hover {
+    background-color: #6C757D;
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* OTHER KHÁC */
+.group-function {
+    margin: 20px 17px 0;
+    border: 1px solid #6C757D;
+    border-radius: 20px 20px 0 0;
+    background: #c3c3c3;
+}
+
+#loading-spinner {
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: #ffffff3e;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    scale: 1.2;
+}
+
+.spinner-border {
+    position: absolute;
+    top: calc(50% - 25px);
+}
+
+.employees-position-relative {
+    position: relative;
+}
+
+.text-notification {
+    font-weight: 330;
+    font-style: italic
+}
+
+/* BUTTON _ Chấm CÔng, cham cong, timekeeping */
+
+.bg_secondary_cus {
+    background-color: #bababa;
+}
+
+
+/* LOGS TAB */
+.log-item {
+    transition: all 0.3s ease;
+    border-left: 4px solid #dee2e6 !important;
+}
+
+.log-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.log-item[data-action="xóa"] {
+    border-left-color: #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.05);
+}
+
+.log-item[data-action="tạo"] {
+    border-left-color: #0dcaf0 !important;
+    background-color: rgba(13, 202, 240, 0.05);
+}
+
+.log-item[data-action="sửa"] {
+    border-left-color: #6C757D !important;
+    background-color: rgba(255, 193, 7, 0.05);
+}
+
+.log-item[data-action="khôi phục"] {
+    border-left-color: #198754 !important;
+    background-color: rgba(25, 135, 84, 0.05);
+}
+
+.log-item[data-action="đổi mật khẩu"],
+.log-item[data-action="resetPassword"] {
+    border-left-color: #6c757d !important;
+    background-color: rgba(108, 117, 125, 0.05);
+}
+
+.filter-btn.active {
+    font-weight: bold;
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none !important;
+}

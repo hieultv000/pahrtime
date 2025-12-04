@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="IpPlY8UN6Q51F0VMTZ6g02yIgXNuul0bOYUUNeCH">
+    <link rel="icon" type="image/x-icon" href="images/Logo_PA.png">
+    <title>Chấm Công</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.lssdhrtime.com/assets/bootstrap-5.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.lssdhrtime.com/assets/fontawesome-6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/hr_employees.css">
+    <link rel="stylesheet" href="stylesheets/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+      <link rel="stylesheet" href="https://www.lssdhrtime.com/assets/bootstrap-5.3.7-dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=BBH+Sans+Bogle&family=Lilita+One&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="nav-logo">
+                    <h5 class="lilita-one-regular">VINEWOOD ACADEMY'S DEPARTMENT</h5>
+                </div>
+                <div class="user-info d-flex align-items-center gap-2">
+                    <span>
+                        Xin chào, <a href="/profile" class=""><%= position %> <strong><%= displayName %></strong></a>
+                    </span>
+                    <div class="nav-avartar">
+                        <img src="<%= avatar %>" alt="Avatar" class="rounded-circle user-avatar" width="46" height="46"
+                             onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=<%= displayName %>&background=random';">
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn-drop-custom" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-primary" href="/profile">Hồ sơ</a></li>
+                            <% if (role === 'admin') { %>
+                                <li><a class="dropdown-item text-info" href="/admin">Panel Admin</a></li>
+                            <% } %>
+                            <% if (role === 'admin') { %>
+                                <li><a class="dropdown-item text-info" href="/admin-panel">Panel Duty</a></li>
+                            <% } %>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="/logout"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Đăng xuất
+                                </a>
+                                <form id="logout-form" action="/logout" method="POST" class="d-none"></form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container color-white">
+            <a class="navbar-brand d-flex align-items-center logo_lssd" href="/home">
+                <img src="images/Logo_PA.png" alt="Logo" height="50" class="me-3">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/home">Trang Chủ</a></li>
+                    <li class="nav-item"><a class="nav-link active-link" href="/attendance">Chấm Công</a></li>
+                </ul>
+                     <div class="marquee-wrap" role="region" aria-label="Thông báo">
+                <div class="container">
+                    <div class="marquee color-info" tabindex="0">
+                        🔔 <strong>Thông báo</strong>: Nhằm quản lý hoạt động On Duty của các bạn, mọi người vui lòng vào hồ sơ liên kết Discord và tham gia Bot Lanyard
+                        &nbsp;&nbsp;-&nbsp;&nbsp;
+                        Mọi Bug, Lag, ... thắc mắc vui lòng liên hệ T Hieuz trên Discord PA để được hỗ trợ nhanh nhất !
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="loadingOverlay" class="loader-overlay" style="display: none;">
+        <div class="lssd-loader-content">
+            <div class="lssd-badge"><div class="star"></div><div class="text">PA</div></div>
+            <div class="loading-text">Loading VineWood Academy Department...</div>
+            <div class="loader-clock"><span class="hour"></span><span class="min"></span><span class="circel"></span></div>
+        </div>
+    </div>
+
+    <!-- phần header, navbar giữ nguyên như cũ của bạn -->
+
+    <div class="container mt-4">
+        <div class="row group-function p-2">
+            <div class="col-md-10 title-attendance">
+                <p>Lương Trực Tiếp Tháng <%= currentMonth %>: <strong><%= monthlySalary.toLocaleString('vi-VN') %>$</strong></p>
+                <p>Chức Vụ: <strong><%= rank %> - <%= position %></strong></p>
+                <p>Hệ Số Lương: <strong><%= salaryRate.toLocaleString('vi-VN') %>$/1h</strong> <small>(Tối đa <%= maxDailyHours %>h/1 ngày)</small></p>
+                <p>Tổng Sự Nghiệp: <strong><%= careerTotal.toLocaleString('vi-VN') %>$</strong></p>
+            </div>
+
+            <div class="col-md-2 d-flex justify-content-end">
+                <form method="POST" action="/attendance/check">
+                    <input type="hidden" name="_token" value="IpPlY8UN6Q51F0VMTZ6g02yIgXNuul0bOYUUNeCH">
+                    <button type="submit" class="btn-timekeeping-fulltime <%= isOnDuty ? 'btn-danger' : 'btn-success' %>" <%= (todayHours >= maxDailyHours && !isOnDuty) ? 'disabled' : '' %>>
+                        <%= isOnDuty ? 'Off-Duty' : (todayHours >= maxDailyHours ? 'Đã đủ giờ' : 'On-Duty') %>
+                    </button>
+                </form>
+            </div>
+            <p class="text-notification pt-3 mb-0">
+                Vui lòng nhấn F5 trước khi On-Off Duty để làm mới trang nếu có vấn đề về hiển thị dữ liệu.
+            </p>
+        </div>
+
+        <div class="box-employees">
+            <div class="table-employees table-responsive">
+                <table class="table-bordered tb-timekeeping mb-5 text-center align-middle">
+                    <thead>
+                        <tr class="bg-warning">
+                            <th>Sĩ quan</th><th>Ngày</th><th>On-Duty</th><th>Off-Duty</th><th>Giờ</th><th>Lương</th><th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg_secondary_cus text-white">
+                            <td colspan="7" class="text-center"><strong>Bảng chấm công tháng <%= currentMonth %></strong></td>
+                        </tr>
+
+                        <% for (const date in groupedAttendance) { %>
+                            <% groupedAttendance[date].forEach(a => { %>
+                                <tr>
+                                    <td><%= displayName %></td>
+                                    <td><%= a.date %></td>
+                                    <td><%= a.onTime %></td>
+                                    <td><%= a.offTime || 'Đang Làm Việc' %></td>
+                                    <td><%= (a.hours || 0).toFixed(2) %></td>
+                                    <td><%= (a.salary || 0).toLocaleString('vi-VN') %>$</td>
+                                    <td><span class="bg-danger p-1 text-white" style="border-radius: 8px;"><%= a.status %></span></td>
+                                </tr>
+                            <% }); %>
+                            
+                            <tr class="total-day-timekeeping">
+                                <td colspan="2">Tổng ngày: <strong><%= date %></strong></td>
+                                <td colspan="4">Lương ngày: <strong><%= groupedAttendance[date].reduce((sum, a) => sum + (a.salary || 0), 0).toLocaleString('vi-VN') %>$</strong></td>
+                                <td>Tổng Giờ: <strong><%= groupedAttendance[date].reduce((sum, a) => sum + (a.hours || 0), 0).toFixed(2) %>h/<%= maxDailyHours %>h</strong></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="ket_noi_bang mt-0"><h5 class="p-4"><strong>LỊCH SỬ TỔNG KẾT THÁNG</strong></h5></div>
+        <div class="box_history_time table-responsive">
+            <table class="tb_total_month">
+                <thead>
+                    <tr class="table-info"><th>Tháng/Năm</th><th>Tổng giờ</th><th>Tổng lương</th></tr>
+                </thead>
+                <tbody>
+                    <% monthlyHistory.forEach(h => { %>
+                        <tr>
+                            <td><%= h.month %></td>
+                            <td><%= (h.hours || 0).toFixed(2) %>h</td>
+                            <td><%= (h.salary || 0).toLocaleString('vi-VN') %>$</td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+                <!-- Thông Báo -->
+    <div class="notifications">
+        <span id="session-success" data-message=""></span>
+        <span id="session-warning" data-message=""></span>
+        <span id="session-info" data-message=""></span>
+        <!-- <span id="session-warning" data-message=""></span> -->
+        <span id="session-error" data-message=""></span>
+    </div>
+
+    
+            <div class="container">
+    <footer class="d-flex flex-column flex-lg-row justify-content-between align-items-start py-3 my-4 border-top">
+        <div class="mb-3 mb-lg-0">
+            <span class="text-body-secondary">
+                © 2025 Designed and developed by <a href="https://github.com/hieultv000" target="_blank">@thieuz</a> -
+                version 0.1
+            </span>
+        </div>
+        <div class="mt-2">
+            <ul class="contact_admin d-flex justify-content-end">
+                <li>
+                    <a href="https://github.com/hieultv000" target="_blank">
+                        <i class="custom_icon fa-brands fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/@hieultv" target="_blank">
+                        <i class="custom_icon fa-brands fa-youtube"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/hieultv000" target="_blank">
+                        <i class="custom_icon fa-brands fa-linkedin"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<style>
+    .contact_admin {
+        gap: 30px;
+
+        .fa-linkedin {
+            &:hover {
+                color: #0077b5;
+            }
+        }
+
+        .fa-youtube {
+            &:hover {
+                color: #ff0033;
+            }
+        }
+
+        li {
+            list-style: none;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .custom_icon {
+        position: relative;
+        font-size: 30px;
+        color: #1f2328;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            border: 3px solid #e8a800;
+            border-radius: 50%;
+        }
+    }
+    <!-- phần script giữ nguyên -->
+    <script src="https://www.lssdhrtime.com/assets/js/loading.js"></script>
+    <script src="https://www.lssdhrtime.com/assets/js/notification.js"></script>
+    <script src="https://www.lssdhrtime.com/assets/bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
